@@ -1,0 +1,57 @@
+STEP 1: Create MongoDB Atlas Cluster
+-------------------------------------
+1. Go to https://cloud.mongodb.com (sign up if needed)
+2. Create a FREE cluster (M0 Sandbox) - takes ~1-3 minutes
+3.new project - create cluster - save username/pass - create db user - choose a connect method (drivers) - copy connect string
+!save: username, pass, conection string
+
+  - Network Access → Add IP: 0.0.0.0/0 (allows access from anywhere)
+ Security - DB & Network Secutiry - IP Acces list - add ip - 0.0.0.0/0 (allow all);
+
+STEP 2: Install MongoDB Tools (for importing data) ****
+---------------------------------------------------
+Open terminal and run:
+```bash
+brew tap mongodb/brew
+brew install mongodb-database-tools
+```
+
+STEP 3: Import Forum Data
+--------------------------
+This workshop:
+Needs sample data already in the database (themes, posts, users)
+Without it, the forum would be empty - nothing to display!
+The .bson files contain pre-made data for testing
+
+```bash
+cd 04
+mongorestore --uri "<connection string>" --db forum forum/
+-overview - browse collections - forum - data(posts - 8, themes - 5, users - 7)
+```
+
+STEP 4: Configure REST API with .env
+-------------------------------------
+!!!Create a .gitignore file (if not there) and add .env (to hide your env file) - critical
+Create a file called ".env" in the Rest-api folder:
+```
+MONGO_URI=mongodb+srv://<usernamne>:<pass>@cluster0.apigqsm.mongodb.net/forum?retryWrites=true&w=majority&appName=Cluster0
+```
+
+STEP 5: Start REST API
+-----------------------
+```bash
+cd Rest-api
+npm install
+npm start
+```
+The API will run on http://localhost:3000
+
+STEP 6: Verify It Works
+------------------------
+Open browser: http://localhost:3000/api/themes
+if you want to see the data (json) go to: https://toolslick.com/text/formatter/json
+You should see JSON data with themes!
+
+Available API Endpoints:
+- GET /api/themes         → Returns all themes
+- GET /api/posts?limit=5  → Returns latest 5 posts
