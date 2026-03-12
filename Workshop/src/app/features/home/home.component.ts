@@ -1,11 +1,15 @@
-import { Component } from '@angular/core';
-import { ThemesListComponent } from './themes-list/themes-list.component';
-import { RecentPostsComponent } from './recent-posts/recent-posts.component';
+import { Component, inject } from '@angular/core';
+import { AuthService } from '../../core/services/auth.service';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-home',
-  imports: [ThemesListComponent, RecentPostsComponent],
+  imports: [RouterLink],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css'
 })
-export class HomeComponent {}
+export class HomeComponent {
+  private authService = inject(AuthService);
+
+  isLoggedIn = this.authService.isLoggedIn;
+}

@@ -1,20 +1,16 @@
 /*
-*Removes all default whitespace
-*/
+ * Modern CSS Reset
+ */
 
-* {
+*, *::before, *::after {
+    box-sizing: border-box;
     padding: 0;
     margin: 0;
 }
 
-/*
-*Reset CSS model sizing calculations
-*/
-
 html {
     box-sizing: border-box;
-}
-
-*, *:before, *:after {
-    box-sizing: inherit;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    scroll-behavior: smooth;
 }
