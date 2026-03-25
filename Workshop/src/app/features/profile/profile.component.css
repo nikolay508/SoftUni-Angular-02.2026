@@ -155,3 +155,87 @@
 .green-button:hover {
     box-shadow: 0 6px 16px rgba(34, 197, 94, 0.35) !important;
 }
+
+/* Edit Mode Styles */
+.error.edit-error {
+    text-align: center;
+    padding: 0.3rem 1.5rem !important;
+    margin: 0 !important;
+    background: transparent !important;
+    color: var(--color-danger);
+    font-size: 0.82rem;
+    font-weight: 600;
+}
+
+.phone-input {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+    width: 100%;
+}
+
+.phone-input select {
+    width: auto;
+    flex-shrink: 0;
+    padding: 0.45em 0.6em;
+}
+
+.phone-input input {
+    flex: 1;
+    padding: 0.45em 0.7em;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-sm);
+    font-size: 0.9rem;
+    outline: none;
+    background: #fafcff;
+}
+
+.button-group {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    padding: 1.5rem 0 2rem;
+}
+
+.button-group button {
+    padding: 0.65em 2em;
+    border: none;
+    border-radius: var(--radius-full);
+    font-weight: 700;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.button-group button:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.flex > div > input {
+    width: 100%;
+    padding: 0.45em 0.7em;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-sm);
+    font-size: 0.9rem;
+    outline: none;
+    background: #fafcff;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.flex > div > input:focus {
+    border-color: var(--color-sky);
+    box-shadow: 0 0 0 3px rgba(78, 188, 237, 0.18);
+}
+
+.flex > div > input.input-error {
+    border-color: var(--color-danger) !important;
+    box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.15) !important;
+}
+
+.loading-text {
+    text-align: center;
+    padding: 2rem;
+    color: var(--color-text-muted);
+    font-size: 0.9rem;
+}

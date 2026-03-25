@@ -1,5 +1,5 @@
 <div class="container">
-  <form class="register" (ngSubmit)="onRegister()">
+  <form class="register" [formGroup]="registerForm" (ngSubmit)="onRegister()">
     <fieldset>
       <h2>Registration Form</h2>
 
@@ -9,14 +9,22 @@
           ><span><i class="fas fa-user"></i></span
         ></label>
         <input
-          class="input-error"
+          appInputError
           type="text"
           name="username"
           id="username"
           placeholder="Johny"
-          [(ngModel)]="username"
+          formControlName="username"
         />
       </p>
+      @if (registerForm.get('username')?.touched && registerForm.get('username')?.invalid) {
+        @if (registerForm.get('username')?.errors?.['required']) {
+          <p class="error">Username is required!</p>
+        }
+        @if (registerForm.get('username')?.errors?.['minlength']) {
+          <p class="error">Username must be at least 5 characters long.</p>
+        }
+      }
 
       <!-- email -->
       <p class="field field-icon">
@@ -24,13 +32,17 @@
           ><span><i class="fas fa-envelope"></i></span
         ></label>
         <input
+          appInputError
           type="email"
           name="email"
           id="email"
           placeholder="john.doe@gmail.com"
-          [(ngModel)]="email"
+          formControlName="email"
         />
       </p>
+      @if (registerForm.get('email')?.touched && registerForm.get('email')?.invalid) {
+        <p class="error">Email is not valid!</p>
+      }
 
       <!-- telephone -->
       <p class="field field-icon">
@@ -45,39 +57,60 @@
           name="tel"
           id="tel"
           placeholder="885 888 888"
-          [(ngModel)]="tel"
+          formControlName="tel"
         />
       </p>
 
-      <!-- password -->
-      <p class="field field-icon">
-        <label for="password"
-          ><span><i class="fas fa-lock"></i></span
-        ></label>
-        <input
-          type="password"
-          name="password"
-          id="password"
-          placeholder="******"
-          [(ngModel)]="password"
-        />
-      </p>
+      <!-- passwords group -->
+      <ng-container formGroupName="passwords">
+        <p class="field field-icon">
+          <label for="password"
+            ><span><i class="fas fa-lock"></i></span
+          ></label>
+          <input
+            appInputError
+            type="password"
+            name="password"
+            id="password"
+            placeholder="******"
+            formControlName="password"
+            [class.input-error]="passwordsGroup.invalid && passwordsGroup.touched"
+          />
+        </p>
+        @if (passwordsGroup.get('password')?.touched && passwordsGroup.get('password')?.invalid) {
+          <p class="error">Password must be at least 5 characters!</p>
+        }
 
-      <!-- rePassword -->
-      <p class="field field-icon">
-        <label for="rePassword"
-          ><span><i class="fas fa-lock"></i></span
-        ></label>
-        <input
-          type="password"
-          name="rePassword"
-          id="rePassword"
-          placeholder="******"
-          [(ngModel)]="rePassword"
-        />
-      </p>
+        <p class="field field-icon">
+          <label for="rePassword"
+            ><span><i class="fas fa-lock"></i></span
+          ></label>
+          <input
+            appInputError
+            type="password"
+            name="rePassword"
+            id="rePassword"
+            placeholder="******"
+            formControlName="rePassword"
+            [class.input-error]="passwordsGroup.invalid && passwordsGroup.touched"
+          />
+        </p>
+        @if (passwordsGroup.touched && passwordsGroup.errors?.['passwordsMismatch']) {
+          <p class="error">Passwords do not match!</p>
+        }
+      </ng-container>
 
-      <button type="submit">Create Account</button>
+      @if (registerForm.invalid && registerForm.touched) {
+        <p class="error">You can't continue until you provide valid data</p>
+      }
+
+      @if (errorMessage) {
+        <p class="error">{{ errorMessage }}</p>
+      }
+
+      <button type="submit" [disabled]="registerForm.invalid || isLoading">
+        {{ isLoading ? 'Creating Account...' : 'Create Account' }}
+      </button>
 
       <p class="text-center">
         Have an account?

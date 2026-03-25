@@ -1,32 +1,45 @@
 import { Injectable, inject, signal, computed } from '@angular/core';
-import { UserService } from './user.service';
-import { User } from '../../shared/interfaces/user';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { User, UserForAuth, LoginCredentials, ProfileUpdateData } from '../../shared/interfaces/user';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  private userService = inject(UserService);
+  private http = inject(HttpClient);
+  private apiUrl = 'http://localhost:3000/api';
+
   private user = signal<User | null>(null);
 
   isLoggedIn = computed(() => this.user() !== null);
   currentUser = computed(() => this.user());
 
-  login(email: string, password: string): boolean {
-    const IsUser = this.userService.validateCredentials(email, password);
-
-    if(IsUser){
-      this.user.set(IsUser);
-      return true;
-    }
-    return false;
+  login(credentials: LoginCredentials): Observable<User> {
+    return this.http.post<User>(`${this.apiUrl}/login`, credentials, { withCredentials: true });
   }
 
-  setSession(user: User): void{
+  register(userData: UserForAuth): Observable<User> {
+    return this.http.post<User>(`${this.apiUrl}/register`, userData, { withCredentials: true });
+  }
+
+  logout(): Observable<void> {
+    return this.http.post<void>(`${this.apiUrl}/logout`, {}, { withCredentials: true });
+  }
+
+  getProfile(): Observable<User> {
+    return this.http.get<User>(`${this.apiUrl}/users/profile`, { withCredentials: true });
+  }
+
+  updateProfile(data: ProfileUpdateData): Observable<User> {
+    return this.http.put<User>(`${this.apiUrl}/users/profile`, data, { withCredentials: true });
+  }
+
+  setSession(user: User): void {
     this.user.set(user);
   }
 
-  logout(): void{
+  clearSession(): void {
     this.user.set(null);
   }
 }

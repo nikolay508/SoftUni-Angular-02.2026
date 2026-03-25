@@ -13,11 +13,18 @@ export class HeaderComponent {
   private router = inject(Router);
 
   isLoggedIn = this.authService.isLoggedIn;
-
   username = computed(() => this.authService.currentUser()?.username ?? '');
 
   onLogout(): void {
-    this.authService.logout();
-    this.router.navigate(['/home']);
+    this.authService.logout().subscribe({
+      next: () => {
+        this.authService.clearSession();
+        this.router.navigate(['/home']);
+      },
+      error: () => {
+        this.authService.clearSession();
+        this.router.navigate(['/home']);
+      }
+    });
   }
 }

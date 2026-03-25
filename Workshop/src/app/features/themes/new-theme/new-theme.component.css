@@ -149,3 +149,9 @@ p.error {
     border-color: var(--color-danger) !important;
     box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.15) !important;
 }
+
+.new-theme-buttons .public:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none;
+}
