@@ -41,10 +41,6 @@
         <p class="error">You can't continue until you provide valid data</p>
       }
 
-      @if (errorMessage) {
-        <p class="error">{{ errorMessage }}</p>
-      }
-
       <button type="submit" [disabled]="loginForm.invalid || isLoading">
         {{ isLoading ? 'Logging in...' : 'Login' }}
       </button>

@@ -77,10 +77,6 @@
             </div>
           </div>
 
-          @if (errorMessage()) {
-            <p class="error edit-error">{{ errorMessage() }}</p>
-          }
-
           <div class="button-group">
             <button type="button" class="red-button" (click)="onCancel()" [disabled]="isLoading()">Cancel</button>
             <button type="button" class="green-button" [disabled]="profileForm.invalid || isLoading()" (click)="onSave()">

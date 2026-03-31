@@ -1,0 +1,14 @@
+node_modules
+.env
+/dist
+/build
+/coverage
+/logs
+/temp
+/backup
+/archive
+/old
+/trash
+/temp
+/backup
+/.angular

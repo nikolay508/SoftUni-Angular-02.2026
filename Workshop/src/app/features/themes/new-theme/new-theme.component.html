@@ -46,10 +46,6 @@
         }
       </div>
 
-      @if (errorMessage) {
-        <p class="error" style="text-align: center;">{{ errorMessage }}</p>
-      }
-
       <div class="new-theme-buttons">
         <button type="button" class="cancel" (click)="onCancel()" [disabled]="isLoading">Cancel</button>
         <button type="submit" class="public" [disabled]="themeForm.invalid || isLoading">

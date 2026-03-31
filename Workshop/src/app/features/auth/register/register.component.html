@@ -104,10 +104,6 @@
         <p class="error">You can't continue until you provide valid data</p>
       }
 
-      @if (errorMessage) {
-        <p class="error">{{ errorMessage }}</p>
-      }
-
       <button type="submit" [disabled]="registerForm.invalid || isLoading">
         {{ isLoading ? 'Creating Account...' : 'Create Account' }}
       </button>

@@ -4,6 +4,7 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { Router, RouterLink } from '@angular/router';
 import { emailValidator } from '../../../shared/validators/email.validator';
 import { InputErrorDirective } from '../../../shared/directives/input-error.directive';
+import { NotificationService } from '../../../core/services/notification.service';
 
 @Component({
   selector: 'app-login',
@@ -13,6 +14,7 @@ import { InputErrorDirective } from '../../../shared/directives/input-error.dire
 })
 export class LoginComponent {
   private authService = inject(AuthService);
+  private notifService = inject(NotificationService);
   private router = inject(Router);
   private fb = inject(FormBuilder);
 
@@ -22,7 +24,6 @@ export class LoginComponent {
   });
 
   isLoading = false;
-  errorMessage = '';
 
   onLogin(): void {
     if (this.loginForm.invalid) {
@@ -31,7 +32,6 @@ export class LoginComponent {
     }
 
     this.isLoading = true;
-    this.errorMessage = '';
 
     const { email, password } = this.loginForm.value;
 
@@ -39,11 +39,12 @@ export class LoginComponent {
       next: (user) => {
         this.authService.setSession(user);
         this.isLoading = false;
+        this.notifService.showSuccess('Login successful');
         this.router.navigate(['/themes']);
       },
       error: (err) => {
         this.isLoading = false;
-        this.errorMessage = err.error?.message || 'Invalid email or password.';
+        this.notifService.showError('Login unsuccessful');
       }
     });
   }

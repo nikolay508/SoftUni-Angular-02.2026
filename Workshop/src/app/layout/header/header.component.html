@@ -14,7 +14,7 @@
             <a routerLink="/register" routerLinkActive="active">Register</a>
           </li>
         </ul>
-      }  @else {
+      } @else {
         <ul>
           <li>
             <a routerLink="/profile">{{ username() }}'s profile</a>
@@ -39,4 +39,13 @@
       </li>
     </ul>
   </nav>
+  @if (notification()) {
+    <p
+      class="notification"
+      [class.error-message]="notification()?.type === 'error'"
+      [class.success-message]="notification()?.type === 'success'"
+    >
+      {{ notification()?.message }}
+    </p>
+  }
 </header>
