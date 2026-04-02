@@ -1,0 +1,4 @@
+{
+  "outputDirectory": "dist/project-workshop/browser",
+  "rewrites": [{ "source": "/(.*)", "destination": "/index.html" }]
+}
