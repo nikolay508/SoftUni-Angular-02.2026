@@ -3,7 +3,7 @@ import { ActivatedRoute } from "@angular/router";
 import { FormsModule } from "@angular/forms";
 import { AuthService } from "../../../core/services/auth.service";
 import { ApiService } from "../../../core/services/api.service";
-import { Theme } from "../../../shared/interfaces/theme";
+import { Theme } from "../../../shared/interfaces/themes-interfaces/theme";
 import { Post } from "../../../shared/interfaces/post";
 
 @Component({

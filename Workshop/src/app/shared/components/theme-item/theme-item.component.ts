@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { Theme } from '../../interfaces/theme';
+import { Theme } from '../../interfaces/themes-interfaces/theme';
 import { RouterLink } from '@angular/router';
 import { TitleSclicePipe } from '../../pipes/title-sclice.pipe';
 import { DateFormatPipe } from '../../pipes/date-format.pipe';
